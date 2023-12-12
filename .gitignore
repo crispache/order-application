@@ -1,0 +1,18 @@
+# Node dependencies
+node_modules
+
+#dev/build outputs
+dist
+.cache
+.awcache
+
+
+package-lock.json
+
+# Misc
+.DS_Store
+
+# Local env files
+.env
+.env.*
+!.env.template
