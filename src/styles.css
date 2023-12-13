@@ -32,3 +32,19 @@
   flex-wrap: wrap;
   margin: 30px 0px;
 }
+
+.order-detail-container {
+  margin: 40px 0px;
+  height: 100%;
+}
+
+.order-detail-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.order-detail-table {
+  height: 100%;
+  width: 100%;
+}
