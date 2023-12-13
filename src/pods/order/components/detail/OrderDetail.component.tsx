@@ -4,43 +4,32 @@ import Button from '@mui/material/Button';
 import * as vm from "../../Order.vm";
 import { columns } from "./colums.data";
 
-
+type typeValidation = 'validate' | 'invalidate';
 interface Props {
   orderItems: Array<vm.OrderDetail>;
-  validate: (itemsIDS: string[]) => void;
-  invalidate: (itemsIDS: string[]) => void;
+  validationActions: (type: typeValidation, selectedItemIds: string[]) => void;
 }
 
 export const OrderDetail: React.FC<Props> = (props) => {
-  const { orderItems,validate, invalidate } = props;
-
+  const { orderItems, validationActions } = props;
   const [selectedItems, setSelectedItems] = React.useState<string[]>([]);
 
-  const validateItems = () => {
-    validate(selectedItems);
-    emtpySelectedItems()
-  }
-
-  const invalidateItems = () => {
-    invalidate(selectedItems);
-    emtpySelectedItems()
-  }
-
-  const updateItems = (items: string[]) => {
-    setSelectedItems(items)
-  }
-
-
-  const emtpySelectedItems = () => {
+  const handleValidation = (type: typeValidation) => {
+    validationActions(type, selectedItems);
     setSelectedItems([]);
   }
+
+  const updateSelectedItems = (selectedItemIds: string[]) => {
+    setSelectedItems(selectedItemIds)
+  }
+
 
   return (
     <div className="order-detail-container">
 
       <div className="order-detail-buttons">
-        <Button variant="contained" color="success" onClick={validateItems}>Validar</Button>
-        <Button variant="contained" color="error" onClick={invalidateItems}>Invalidar</Button>
+        <Button variant="contained" color="success" onClick={() => handleValidation('validate')}>Validar</Button>
+        <Button variant="contained" color="error" onClick={() => handleValidation('invalidate')}>Invalidar</Button>
       </div>
 
       <div className="order-detail-table">
@@ -51,7 +40,7 @@ export const OrderDetail: React.FC<Props> = (props) => {
           hideFooter
           checkboxSelection
           disableRowSelectionOnClick
-          onRowSelectionModelChange={updateItems}
+          onRowSelectionModelChange={updateSelectedItems}
           rowSelectionModel={selectedItems}
         />
       </div>
