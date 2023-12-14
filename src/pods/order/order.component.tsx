@@ -8,20 +8,40 @@ interface Props {
   detail: Array<vm.OrderDetail>;
 }
 
-type typeValidation = 'validate' | 'invalidate';
-
 export const Order: React.FC<Props> = (props) => {
   const { info, detail } = props;
   const [orderItems, dispatch] = React.useReducer(OrderReducer, detail);
 
-  const handleValidation = (type: typeValidation, selectedItemIds: string[]) => {
-      dispatch({ type, payload: selectedItemIds});
+  const handleValidation = (
+    type: vm.TypeValidationActions,
+    orderItemsIds: string[]
+  ) => {
+    dispatch({
+      type,
+      payload: {
+        orderItemsIds,
+      },
+    });
+  };
+
+  const updateOrderItemAmount = (orderItemId: string, amount: string) => {
+    dispatch({
+      type: "update-item-amount",
+      payload: {
+        orderItemsIds: [orderItemId],
+        orderItemAmount: amount,
+      },
+    });
   };
 
   return (
     <div className="order-container">
-      <OrderHeader info={info} orderItems={orderItems}/>
-      <OrderDetail orderItems={orderItems} validationActions={handleValidation} />
+      <OrderHeader info={info} orderItems={orderItems} />
+      <OrderDetail
+        orderItems={orderItems}
+        validationActions={handleValidation}
+        updateOrderItemAmount={updateOrderItemAmount}
+      />
     </div>
   );
 };

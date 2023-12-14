@@ -15,3 +15,7 @@ export interface OrderDetail {
     description: string;
     amount: string;
 }
+
+
+
+export type TypeValidationActions = "validate" | "invalidate";
