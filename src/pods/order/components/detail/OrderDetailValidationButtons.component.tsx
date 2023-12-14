@@ -1,9 +1,9 @@
 import React from "react";
 import Button from "@mui/material/Button";
-import * as vm from "../../Order.vm";
+import { TypeValidationActions } from "../../Order.vm";
 
 interface Props {
-  handleValidation: (type: vm.TypeValidationActions) => void;
+  handleValidation: (type: TypeValidationActions) => void;
 }
 
 export const OrderDetailValidationButtons: React.FC<Props> = (props) => {

@@ -8,6 +8,13 @@ import {
 
 import { columns } from "./colums.data";
 import { OrderDetail } from "../../Order.vm";
+import { OrderDetailNotification } from "./OrderDetailNotification.component";
+
+interface Notification {
+  isOpen: boolean;
+  type: "success" | "error";
+  message: string;
+}
 
 interface Props {
   orderItems: OrderDetail[];
@@ -17,20 +24,29 @@ interface Props {
 }
 
 export const OrderDetailTable: React.FC<Props> = (props) => {
-  const { orderItems, updateOrderItemAmount, selectedItems, updateSelectedItems } = props;
+  const {
+    orderItems,
+    updateOrderItemAmount,
+    selectedItems,
+    updateSelectedItems,
+  } = props;
+  const [notification, setNotification] = React.useState<Notification>({
+    isOpen: false,
+    type: "success",
+    message: null,
+  });
 
   const handleChangeItemAmount = (orderItem: OrderDetail) => {
     updateOrderItemAmount(orderItem.id, orderItem.amount);
+    setNotification({...notification, isOpen: true, message: 'Guardado correctamente'})
   };
 
   const onRowSelectionModelChange = (selectedItemIds: string[]) => {
     updateSelectedItems(selectedItemIds);
   };
 
-  // TODO: REVISAR
   const handleProcessRowUpdateError = React.useCallback((error: Error) => {
-    /*   setSnackbar({ children: error.message, severity: 'error' }); */
-    console.log(error);
+    setNotification({...notification, isOpen: true, type: 'error', message: error.message})
   }, []);
 
   return (
@@ -54,6 +70,15 @@ export const OrderDetailTable: React.FC<Props> = (props) => {
           return updatedRow;
         }}
         onProcessRowUpdateError={handleProcessRowUpdateError}
+      />
+
+      <OrderDetailNotification
+        isOpen={notification.isOpen}
+        type={notification.type}
+        message={notification.message}
+        closeNotication={() =>
+          setNotification({ ...notification, isOpen: false })
+        }
       />
     </div>
   );

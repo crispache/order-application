@@ -2,21 +2,22 @@ import React from "react";
 import { Alert, Snackbar } from "@mui/material";
 
 interface Props {
+  isOpen: boolean;
   type: "success" | "error";
   message: string;
   closeNotication: () => void;
 }
 
 export const OrderDetailNotification: React.FC<Props> = React.memo((props) => {
-  const { type, message, closeNotication } = props;
+  const { isOpen, type, message, closeNotication } = props;
 
   return (
     <>
       <Snackbar
-        open
+        open={isOpen}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
         onClose={closeNotication}
-        autoHideDuration={6000}
+        autoHideDuration={2500}
       >
         <Alert
           onClose={closeNotication}
