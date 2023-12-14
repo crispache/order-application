@@ -37,7 +37,7 @@ export const OrderHeader: React.FC<Props> = (props) => {
           <OrderHeaderStatus orderItems={orderItems} />
         </div>
 
-        <OrderHeaderTotalAmount totalAmount={info.totalAmount} />
+        <OrderHeaderTotalAmount orderItems={orderItems} />
       </div>
     </div>
   );
