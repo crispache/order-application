@@ -1,17 +1,14 @@
 import React from "react";
-import {
-  DataGrid,
-  GridCellEditStopParams,
-  GridCellEditStopReasons,
-  MuiEvent,
-} from "@mui/x-data-grid";
 import * as vm from "../../Order.vm";
-import { columns } from "./colums.data";
 import { OrderDetailValidationButtons } from "./OrderDetailValidationButtons.component";
+import { OrderDetailTable } from "./OrderDetailTable.component";
 
 interface Props {
-  orderItems: Array<vm.OrderDetail>;
-  validationActions: (type: vm.TypeValidationActions, selectedItemIds: string[]) => void;
+  orderItems: vm.OrderDetail[];
+  validationActions: (
+    type: vm.TypeValidationActions,
+    selectedItemIds: string[]
+  ) => void;
   updateOrderItemAmount: (orderItemId: string, amount: string) => void;
 }
 
@@ -24,44 +21,20 @@ export const OrderDetail: React.FC<Props> = (props) => {
     setSelectedItems([]);
   };
 
-  const updateSelectedItems = (selectedItemIds: string[]) => {
-    setSelectedItems(selectedItemIds);
+  const updateSelectedItems = (orderItemsIds: string[]) => {
+    setSelectedItems(orderItemsIds);
   };
-
-  const updateRow = (orderItem: vm.OrderDetail) => {
-    updateOrderItemAmount(orderItem.id, orderItem.amount);
-  };
-
-  const handleProcessRowUpdateError = React.useCallback((error: Error) => {
-    /*   setSnackbar({ children: error.message, severity: 'error' }); */
-    console.log(error);
-  }, []);
 
   return (
     <div className="order-detail-container">
-      <OrderDetailValidationButtons handleValidation={handleValidation}/>
-      <div className="order-detail-table">
-        <DataGrid
-          columns={columns}
-          rows={orderItems}
-          hideFooterPagination
-          hideFooter
-          checkboxSelection
-          disableRowSelectionOnClick
-          onRowSelectionModelChange={updateSelectedItems}
-          rowSelectionModel={selectedItems}
-          onCellEditStop={(params: GridCellEditStopParams, event: MuiEvent) => {
-            if (params.reason === GridCellEditStopReasons.cellFocusOut) {
-              event.defaultMuiPrevented = true;
-            }
-          }}
-          processRowUpdate={(updatedRow:vm.OrderDetail) => {
-            updateRow(updatedRow)
-            return updatedRow;
-          }}
-          onProcessRowUpdateError={handleProcessRowUpdateError}
-        />
-      </div>
+      <OrderDetailValidationButtons handleValidation={handleValidation} />
+
+      <OrderDetailTable
+        orderItems={orderItems}
+        selectedItems={selectedItems}
+        updateOrderItemAmount={updateOrderItemAmount}
+        updateSelectedItems={updateSelectedItems}
+      />
     </div>
   );
 };
