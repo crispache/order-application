@@ -20,7 +20,7 @@ export const Order: React.FC<Props> = (props) => {
 
   return (
     <div className="order-container">
-      <OrderHeader info={info} />
+      <OrderHeader info={info} orderItems={orderItems}/>
       <OrderDetail orderItems={orderItems} validationActions={handleValidation} />
     </div>
   );
