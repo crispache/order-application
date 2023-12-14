@@ -24,12 +24,7 @@ interface Props {
 }
 
 export const OrderDetailTable: React.FC<Props> = (props) => {
-  const {
-    orderItems,
-    updateOrderItemAmount,
-    selectedItems,
-    updateSelectedItems,
-  } = props;
+  const { orderItems, updateOrderItemAmount, selectedItems, updateSelectedItems } = props;
   const [notification, setNotification] = React.useState<Notification>({
     isOpen: false,
     type: "success",
@@ -76,7 +71,7 @@ export const OrderDetailTable: React.FC<Props> = (props) => {
         isOpen={notification.isOpen}
         type={notification.type}
         message={notification.message}
-        closeNotication={() =>
+        closeNotification={() =>
           setNotification({ ...notification, isOpen: false })
         }
       />
