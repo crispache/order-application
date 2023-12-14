@@ -5,9 +5,9 @@ import {
   GridCellEditStopReasons,
   MuiEvent,
 } from "@mui/x-data-grid";
-import Button from "@mui/material/Button";
 import * as vm from "../../Order.vm";
 import { columns } from "./colums.data";
+import { OrderDetailValidationButtons } from "./OrderDetailValidationButtons.component";
 
 interface Props {
   orderItems: Array<vm.OrderDetail>;
@@ -39,23 +39,7 @@ export const OrderDetail: React.FC<Props> = (props) => {
 
   return (
     <div className="order-detail-container">
-      <div className="order-detail-buttons">
-        <Button
-          variant="contained"
-          color="success"
-          onClick={() => handleValidation("validate")}
-        >
-          Validar
-        </Button>
-        <Button
-          variant="contained"
-          color="error"
-          onClick={() => handleValidation("invalidate")}
-        >
-          Invalidar
-        </Button>
-      </div>
-
+      <OrderDetailValidationButtons handleValidation={handleValidation}/>
       <div className="order-detail-table">
         <DataGrid
           columns={columns}
