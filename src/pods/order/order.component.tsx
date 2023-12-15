@@ -12,10 +12,7 @@ export const Order: React.FC<Props> = (props) => {
   const { info, detail } = props;
   const [orderItems, dispatch] = React.useReducer(OrderReducer, detail);
 
-  const handleValidation = (
-    type: vm.TypeValidationActions,
-    orderItemsIds: string[]
-  ) => {
+  const handleValidation = (type: vm.TypeValidationActions, orderItemsIds: string[]) => {
     dispatch({
       type,
       payload: {

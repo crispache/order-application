@@ -5,10 +5,7 @@ import { OrderDetailTable } from "./OrderDetailTable.component";
 
 interface Props {
   orderItems: vm.OrderDetail[];
-  validationActions: (
-    type: vm.TypeValidationActions,
-    selectedItemIds: string[]
-  ) => void;
+  validationActions: (type: vm.TypeValidationActions, selectedItemIds: string[]) => void;
   updateOrderItemAmount: (orderItemId: string, amount: string) => void;
 }
 

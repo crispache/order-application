@@ -6,7 +6,7 @@ import {
   MuiEvent,
 } from "@mui/x-data-grid";
 
-import { columns } from "./colums.data";
+import { columns } from "./data";
 import { OrderDetail } from "../../Order.vm";
 import { OrderDetailNotification } from "./OrderDetailNotification.component";
 
