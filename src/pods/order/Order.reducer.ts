@@ -17,7 +17,6 @@ export const OrderReducer = (state: OrderDetail[], action: OrderActionsReducer):
           if (action.payload.orderItemsIds.includes(orderItem.id)) {
             return {
               ...orderItem,
-              isChecked: true,
               status: "Válido",
             };
           }
@@ -28,14 +27,12 @@ export const OrderReducer = (state: OrderDetail[], action: OrderActionsReducer):
           if ((action.payload.orderItemsIds.includes(orderItem.id))) {
             return {
               ...orderItem,
-              isChecked: false,
               status: "Pendiente",
             };
           }
           return orderItem;
         });
         case "update-item-amount":
-          // TODO: HACER => id y new price
           return state.map((orderItem) => {
             if ((action.payload.orderItemsIds.includes(orderItem.id))) {
               return {
